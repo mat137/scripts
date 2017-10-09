@@ -1,5 +1,9 @@
 <script>
 
+/*
+  Example from Eloquent Javascript book
+*/
+
 var JOURNAL = [
   {"events":["carrot","exercise","weekend"],"squirrel":false},
   {"events":["bread","pudding","brushed teeth","weekend","touched tree"],"squirrel":false},
@@ -93,6 +97,28 @@ var JOURNAL = [
   {"events":["cauliflower","peanuts","brushed teeth","weekend"],"squirrel":false}
 ];
 
+  function gatherCorrelations(journal){
+    var phis = {};
+    journal.forEach(function(entry){
+      entry.events.forEach(function(events){
+        var event = events;
+        if(!(event in phis)){
+          phis[event] = phi(tableFor(event,journal));
+        }
+      })
+    })
+    // for (var entry = 0; entry < journal.length; entry++){
+    //   var events = journal[entry].events;
+    //   for(var i = 0; i < events.length; i++){
+    //     var event = events[i];
+    //     if(!(event in phis)){
+    //       phis[event] = phi(tableFor(event,journal));
+    //     }
+    //   }
+    // }
+    return phis;
+  }
+
   var journal = [];
 
   function addEntry(events, didITurnIntoASquirrel) {
@@ -132,7 +158,13 @@ var JOURNAL = [
   }
 
   console.log(tableFor("pizza", JOURNAL));
+  console.log(phi(tableFor("pizza",JOURNAL)));
 
+var corr = gatherCorrelations(JOURNAL);
+
+for(var key in corr){
+  console.log(key + " -> " + corr[key]);
+}
 
 
 
